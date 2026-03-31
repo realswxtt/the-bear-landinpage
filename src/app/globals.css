@@ -9,6 +9,12 @@
   --font-inter: var(--font-inter);
   --font-mono: var(--font-geist-mono);
   --font-syne: var(--font-syne);
+
+  /* Fluid Typography Tokens */
+  --font-size-hero: clamp(2.5rem, 10vw + 1rem, 7rem);
+  --font-size-h2: clamp(2rem, 5vw + 1rem, 4.5rem);
+  --font-size-h3: clamp(1.5rem, 3vw + 1rem, 2.5rem);
+  --font-size-body: clamp(0.9rem, 1vw + 0.5rem, 1.1rem);
 }
 
 :root {

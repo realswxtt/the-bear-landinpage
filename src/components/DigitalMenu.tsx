@@ -105,10 +105,10 @@ export default function DigitalMenu() {
                         className="w-full flex items-center justify-between bg-[#111] border border-[#00f2ff]/30 text-[#00f2ff] font-mono text-[10px] tracking-[0.2em] uppercase px-4 py-3 rounded-lg shadow-[0_0_15px_rgba(0,242,255,0.05)] focus:outline-none focus:border-[#00f2ff]/80 transition-all"
                     >
                         <div className="flex items-center gap-3">
-                            <span className="opacity-80 drop-shadow-[0_0_8px_rgba(0,242,255,0.6)]">{getCategoryIcon(activeCategory)}</span>
+                            <span className="opacity-80 drop-shadow-[0_0_8px_rgba(0,243,255,0.6)]">{getCategoryIcon(activeCategory)}</span>
                             <span className="translate-y-[1px]">{activeCategory}</span>
                         </div>
-                        <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isMobileMenuOpen ? "rotate-180 text-[#00f2ff]" : "text-neutral-500"}`} />
+                        <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isMobileMenuOpen ? "rotate-180 text-neon-blue" : "text-neutral-500"}`} />
                     </button>
                     <AnimatePresence>
                         {isMobileMenuOpen && (
@@ -129,11 +129,11 @@ export default function DigitalMenu() {
                                                 window.scrollTo({ top: 250, behavior: "smooth" });
                                             }}
                                             className={`w-full text-left font-mono text-[10px] tracking-[0.2em] uppercase px-4 py-3 rounded transition-colors flex items-center gap-3 ${activeCategory === cat
-                                                ? "bg-[#00f2ff]/10 text-[#00f2ff] border border-[#00f2ff]/20"
+                                                ? "bg-neon-blue/10 text-neon-blue border border-neon-blue/20"
                                                 : "text-neutral-500 hover:bg-[#111] hover:text-white"
                                                 }`}
                                         >
-                                            <span className={`opacity-80 scale-90 ${activeCategory === cat ? 'drop-shadow-[0_0_8px_rgba(0,242,255,0.6)]' : ''}`}>
+                                            <span className={`opacity-80 scale-90 ${activeCategory === cat ? 'drop-shadow-[0_0_8px_rgba(0,243,255,0.6)]' : ''}`}>
                                                 {getCategoryIcon(cat)}
                                             </span>
                                             {cat}
@@ -181,7 +181,7 @@ export default function DigitalMenu() {
                                                 <div className="flex-grow border-b-[2px] border-dotted border-neutral-800 mx-4 opacity-70 group-hover:border-[#00f2ff]/40 transition-colors" />
 
                                                 {/* Derecha: Precio Vibrante */}
-                                                <span className="font-black text-xl md:text-3xl text-[#FF4D00] shrink-0 transform-gpu group-hover:scale-105 transition-transform origin-right">
+                                                <span className="font-black text-xl md:text-3xl text-neon-orange shrink-0 transform-gpu group-hover:scale-105 transition-transform origin-right">
                                                     <span className="text-[10px] md:text-sm font-mono opacity-50 mr-1 text-white">S/</span>{item.price}
                                                 </span>
                                             </div>
