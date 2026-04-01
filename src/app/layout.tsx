@@ -22,7 +22,7 @@ const syne = Syne({
 
 export const metadata: Metadata = {
   title: "THE BEAR CEVICHERIA ",
-  description: "Fuerza salvaje, frescura pura. El ceviche como nunca lo has experimentado.",
+  description: "Técnica y alma en cada bocado. El ceviche como nunca lo has experimentado.",
   icons: {
     icon: "/logobear.jpeg",
   },

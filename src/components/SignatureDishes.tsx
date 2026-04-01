@@ -77,7 +77,7 @@ export default function SignatureDishes() {
 
                             <div className="absolute bottom-0 left-0 w-full p-8 space-y-2">
                                 <motion.p className="text-neon-blue font-sans font-bold text-sm uppercase tracking-widest">
-                                    Fuerza Salvaje
+                                    Selección del Mar
                                 </motion.p>
                                 <h3 className="text-white font-syne font-black text-2xl md:text-3xl uppercase leading-tight">
                                     {dish.name}
