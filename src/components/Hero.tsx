@@ -97,9 +97,9 @@ export default function Hero() {
                     transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
                     className="relative w-full flex flex-col items-center justify-center z-20 mb-6 md:mb-12 cursor-default"
                 >
-                    <h1 className="text-[6rem] sm:text-[8rem] md:text-[11rem] lg:text-[13rem] font-black font-syne tracking-tighter uppercase leading-[0.75] text-white flex flex-col items-center drop-shadow-[0_0_40px_rgba(0,243,255,0.4)]">
+                    <h1 className="text-[4.5rem] sm:text-[6.5rem] md:text-[9.5rem] lg:text-[11rem] font-black font-syne tracking-tighter uppercase leading-[0.75] text-white flex flex-col items-center drop-shadow-[0_0_40px_rgba(0,243,255,0.4)]">
                         <span className="relative z-10">THE</span>
-                        <span className="text-transparent bg-clip-text bg-gradient-to-b from-neon-blue to-white relative z-20 -mt-4 md:-mt-8">BEAR</span>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-b from-neon-blue to-white relative z-20 -mt-2 sm:-mt-4 md:-mt-6">BEAR</span>
                     </h1>
                 </motion.div>
 

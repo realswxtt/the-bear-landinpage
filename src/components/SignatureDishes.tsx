@@ -170,14 +170,14 @@ export default function SignatureDishes() {
             {/* Modal / Expanded View */}
             <AnimatePresence>
                 {selectedId && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center p-0 sm:p-4 md:p-8 bg-black/90 backdrop-blur-md">
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8 bg-black/90 backdrop-blur-md">
                         <motion.div
                             layoutId={`card-${selectedId}`}
-                            className="relative w-full h-full sm:h-auto sm:max-w-5xl bg-[#111] sm:rounded-3xl overflow-hidden shadow-2xl border border-neutral-800 flex flex-col md:flex-row"
+                            className="relative w-full max-w-md sm:max-w-5xl h-auto max-h-[90vh] bg-[#111] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-neutral-800 flex flex-col md:flex-row"
                         >
                             <button
                                 onClick={() => setSelectedId(null)}
-                                className="absolute top-4 right-4 sm:top-6 sm:right-6 z-20 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full bg-black/60 text-white hover:bg-neon-orange transition-colors"
+                                className="absolute top-3 right-3 sm:top-6 sm:right-6 z-20 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full bg-black/60 text-white hover:bg-neon-orange transition-colors shadow-lg"
                                 aria-label="Cerrar"
                             >
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
@@ -186,7 +186,7 @@ export default function SignatureDishes() {
                                 </svg>
                             </button>
 
-                            <div className="w-full md:w-1/2 aspect-square sm:aspect-video md:aspect-auto relative h-[40vh] sm:h-80 md:h-[600px] shrink-0">
+                            <div className="w-full md:w-1/2 relative h-48 sm:h-80 md:h-[600px] shrink-0">
                                 <Image
                                     src={dishes.find(d => d.id === selectedId)?.image || ""}
                                     alt={dishes.find(d => d.id === selectedId)?.name || ""}
@@ -196,7 +196,7 @@ export default function SignatureDishes() {
                                 />
                             </div>
 
-                            <div className="w-full md:w-1/2 p-6 sm:p-8 md:p-12 flex flex-col justify-center space-y-4 sm:space-y-6 overflow-y-auto max-h-[60vh] sm:max-h-none hide-scrollbar">
+                            <div className="w-full md:w-1/2 p-6 sm:p-8 md:p-12 flex flex-col justify-center space-y-4 sm:space-y-6 overflow-y-auto hide-scrollbar">
                                 <motion.div
                                     initial={{ opacity: 0, x: 20 }}
                                     animate={{ opacity: 1, x: 0 }}
@@ -205,19 +205,19 @@ export default function SignatureDishes() {
                                     <p className="text-neon-blue font-sans font-bold text-[10px] sm:text-xs uppercase tracking-widest mb-1 sm:mb-2">
                                         Especialidad de la Casa
                                     </p>
-                                    <h2 className="text-white font-syne font-black text-3xl sm:text-4xl md:text-5xl uppercase leading-none mb-4 sm:mb-6">
+                                    <h2 className="text-white font-syne font-black text-2xl sm:text-4xl md:text-5xl uppercase leading-none mb-4 sm:mb-6">
                                         {dishes.find(d => d.id === selectedId)?.name}
                                     </h2>
-                                    <div className="h-1 w-16 sm:w-20 bg-neon-orange mb-6 sm:mb-8" />
-                                    <p className="text-neutral-300 text-base sm:text-lg md:text-xl font-sans leading-relaxed">
+                                    <div className="h-1 w-16 sm:w-20 bg-neon-orange mb-4 sm:mb-8" />
+                                    <p className="text-neutral-300 text-sm sm:text-lg md:text-xl font-sans leading-relaxed">
                                         {dishes.find(d => d.id === selectedId)?.description}
                                     </p>
 
                                     <button
                                         onClick={() => setSelectedId(null)}
-                                        className="mt-8 sm:mt-10 px-6 sm:px-8 py-3 sm:py-4 bg-neon-orange text-white font-bold uppercase tracking-widest rounded-xl hover:bg-[#e04400] transition-colors inline-block text-sm"
+                                        className="mt-6 sm:mt-10 px-6 sm:px-8 py-3 sm:py-4 bg-neon-orange text-white font-bold uppercase tracking-widest rounded-xl hover:bg-[#e04400] transition-colors inline-block text-[10px] sm:text-sm"
                                     >
-                                        Volver a ver
+                                        Cerrar Vista
                                     </button>
                                 </motion.div>
                             </div>
