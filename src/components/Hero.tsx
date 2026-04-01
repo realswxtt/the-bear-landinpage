@@ -90,20 +90,18 @@ export default function Hero() {
                 <div className="absolute right-[-20px] top-1/2 -translate-y-1/2 -rotate-90 text-[8px] font-mono text-neutral-600 tracking-[0.5em] whitespace-nowrap opacity-40">Lat: 13.16° S / Long: 74.22° W</div>
                 <div className="absolute top-4 right-0 hidden md:block text-[10px] font-mono text-neon-blue/20 rotate-90 translate-x-[50%] uppercase tracking-[0.5em]">The Bear // Raw & Wild</div>
 
-                {/* 1. Centered Large Logo (Better blending and placement) */}
+                {/* 1. Centered Large Logo (Using standard img for better blending control) */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.8, y: 20 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-                    className="relative w-80 h-80 sm:w-96 sm:h-96 md:w-[500px] md:h-[500px] z-20"
+                    className="relative w-80 h-80 sm:w-96 sm:h-96 md:w-[500px] md:h-[500px] z-20 flex items-center justify-center overflow-hidden"
                 >
-                    <Image
+                    <img
                         src="/logo-the-bear-icon.png"
                         alt="The Bear Logo"
-                        fill
-                        priority
-                        className="object-contain mix-blend-screen brightness-150 contrast-150"
-                        sizes="(max-width: 480px) 320px, (max-width: 768px) 384px, 500px"
+                        className="w-full h-full object-contain mix-blend-screen"
+                        style={{ filter: "contrast(200%) brightness(120%) grayscale(1)" }}
                     />
                 </motion.div>
 
