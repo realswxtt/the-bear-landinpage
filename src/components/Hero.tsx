@@ -96,6 +96,7 @@ export default function Hero() {
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
                     className="relative w-80 h-80 sm:w-96 sm:h-96 md:w-[500px] md:h-[500px] z-20 mix-blend-screen"
+                    style={{ filter: "contrast(1.1) brightness(1.1)" }}
                 >
                     <Image
                         src="/logo-the-bear-icon.png"
@@ -105,7 +106,23 @@ export default function Hero() {
                         className="object-contain"
                         sizes="(max-width: 480px) 320px, (max-width: 768px) 384px, 500px"
                     />
+                    {/* SVG filter to aggressively remove any near-black background */}
+                    <div className="absolute inset-0 opacity-0 pointer-events-none">
+                        <svg width="0" height="0">
+                            <filter id="chroma-key">
+                                <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  -1 -1 -1 1 0" />
+                            </filter>
+                        </svg>
+                    </div>
                 </motion.div>
+
+                {/* Applying the filter via a wrapper if needed, but mix-blend-screen usually works with true black. 
+                    Let's use a CSS filter to force true black if the image has greyish backgrounds. */}
+                <style jsx>{`
+                    .mix-blend-screen {
+                        filter: contrast(120%) brightness(110%);
+                    }
+                `}</style>
 
                 {/* 2. Slogan & Description (Closer to Logo) */}
                 <div className="text-center space-y-2 w-full mt-[-30px] md:mt-[-50px]">
