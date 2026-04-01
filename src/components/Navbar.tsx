@@ -11,10 +11,17 @@ export default function Navbar() {
     return (
         <>
             <nav className="fixed top-0 w-full z-50 bg-[#0a0a0a]/80 backdrop-blur-xl border-b border-neutral-900/40 px-6 py-4 flex justify-between items-center transition-all">
-                <Link href="/" className="group flex items-center gap-2">
-                    <span className="text-xl md:text-2xl font-black tracking-tighter text-white uppercase group-hover:text-neon-blue transition-colors">
-                        THE <span className="text-neon-blue">BEAR</span>
-                    </span>
+                <Link href="/" className="group flex items-center">
+                    <div
+                        className="relative w-28 h-10 md:w-36 md:h-12 mix-blend-screen"
+                        style={{ filter: "url(#true-neon-glow)" }}
+                    >
+                        <img
+                            src="/logo-the-bear-icon.png"
+                            alt="The Bear Logo"
+                            className="w-full h-full object-contain"
+                        />
+                    </div>
                 </Link>
 
                 <button

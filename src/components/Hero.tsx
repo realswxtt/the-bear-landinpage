@@ -84,63 +84,40 @@ export default function Hero() {
             {/* 4. Floating Sea Sediment / Bubbles */}
             <Bubbles />
 
-            <div className="relative z-10 flex flex-col items-center justify-center flex-1 w-full max-w-2xl mx-auto pb-10">
+            <div className="relative z-10 flex flex-col items-center justify-center flex-1 w-full max-w-4xl mx-auto pb-10">
 
                 {/* Coordinate Markers (Brutalist detail to fill space) */}
                 <div className="absolute right-[-20px] top-1/2 -translate-y-1/2 -rotate-90 text-[8px] font-mono text-neutral-600 tracking-[0.5em] whitespace-nowrap opacity-40">Lat: 13.16° S / Long: 74.22° W</div>
                 <div className="absolute top-4 right-0 hidden md:block text-[10px] font-mono text-neon-blue/20 rotate-90 translate-x-[50%] uppercase tracking-[0.5em]">The Bear // Raw & Wild</div>
 
-                {/* SVG Filter: Convierte el fondo negro en transparente y aplica Neón contorneado en CYAN (#00f2ff) */}
-                <svg className="hidden">
-                    <defs>
-                        <filter id="true-neon-glow" x="-50%" y="-50%" width="200%" height="200%">
-                            <feColorMatrix in="SourceGraphic" type="matrix"
-                                values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.2126 0.7152 0.0722 0 0"
-                                result="luminanceAlpha" />
-                            <feComponentTransfer in="luminanceAlpha" result="cleanAlpha">
-                                <feFuncA type="linear" slope="5" intercept="-0.5" />
-                            </feComponentTransfer>
-                            {/* Glow more intense */}
-                            <feDropShadow in="cleanAlpha" dx="0" dy="0" stdDeviation="4" floodColor="#00f3ff" floodOpacity="1" result="glow1" />
-                            <feDropShadow in="glow1" dx="0" dy="0" stdDeviation="15" floodColor="#00f3ff" floodOpacity="1" result="glow2" />
-                            <feDropShadow in="glow2" dx="0" dy="0" stdDeviation="30" floodColor="#00f3ff" floodOpacity="0.8" result="glow3" />
-                        </filter>
-                    </defs>
-                </svg>
-
-                {/* 1. Centered Large Logo (With perfect Neon Glow blending) */}
+                {/* 1. Main Brutalist Typography (Replaces the image logo) */}
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                    initial={{ opacity: 0, scale: 0.9, y: 30 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-                    className="relative w-full max-w-[320px] sm:max-w-[450px] md:max-w-[600px] aspect-[2.5/1] z-20 mix-blend-screen -mb-2 md:-mb-6"
-                    style={{ filter: "url(#true-neon-glow)" }}
+                    className="relative w-full flex flex-col items-center justify-center z-20 mb-6 md:mb-12 cursor-default"
                 >
-                    <Image
-                        src="/logo-the-bear-icon.png"
-                        alt="The Bear Logo"
-                        fill
-                        priority
-                        className="object-contain"
-                        sizes="(max-width: 480px) 320px, (max-width: 768px) 450px, 600px"
-                    />
+                    <h1 className="text-[6rem] sm:text-[8rem] md:text-[11rem] lg:text-[13rem] font-black font-syne tracking-tighter uppercase leading-[0.75] text-white flex flex-col items-center drop-shadow-[0_0_40px_rgba(0,243,255,0.4)]">
+                        <span className="relative z-10">THE</span>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-b from-neon-blue to-white relative z-20 -mt-4 md:-mt-8">BEAR</span>
+                    </h1>
                 </motion.div>
 
                 {/* 2. Slogan & Description (Massive and Tight) */}
-                <div className="text-center space-y-4 w-full z-20">
-                    <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-[7rem] font-black tracking-tighter text-white uppercase leading-[0.85] drop-shadow-[0_0_35px_rgba(0,243,255,0.7)] selection:bg-neon-blue selection:text-black">
+                <div className="text-center space-y-6 w-full z-20">
+                    <h2 className="text-xl sm:text-2xl md:text-4xl font-black tracking-widest text-neon-blue uppercase drop-shadow-[0_0_15px_rgba(0,243,255,0.7)]">
                         Técnica y Alma. <br className="hidden sm:block" />
                         <span className="text-white brightness-200">Selección del Mar.</span>
-                    </h1>
+                    </h2>
 
                     {/* 3. Description Paragraph */}
-                    <p className="text-neutral-400 text-sm md:text-xl font-mono leading-snug tracking-wider max-w-lg mx-auto px-6 opacity-70">
+                    <p className="text-neutral-400 text-sm md:text-xl font-mono leading-snug tracking-wider max-w-2xl mx-auto px-6 opacity-70">
                         Siente el golpe del mar en cada bocado. THE BEAR, ceviche con técnica y alma en Ayacucho.
                     </p>
                 </div>
 
                 {/* 3. Primary CTA */}
-                <div className="w-full mt-8 md:mt-10 flex justify-center z-20">
+                <div className="w-full mt-10 md:mt-14 flex justify-center z-20">
                     <Link href="/Carta" className="w-full max-w-[300px] sm:max-w-[380px] py-5 sm:py-7 rounded-2xl border-2 border-neon-blue/40 bg-neon-blue/5 text-white font-black text-base md:text-xl tracking-[0.3em] uppercase shadow-[0_0_25px_rgba(0,243,255,0.25)] active:scale-[0.95] transition-all hover:bg-neon-blue/15 hover:border-neon-blue hover:shadow-[0_0_50px_rgba(0,243,255,0.6)] text-center flex items-center justify-center backdrop-blur-3xl group relative overflow-hidden">
                         <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent)] -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                         <span className="relative z-10 group-hover:scale-105 transition-transform">Ver Carta Digital</span>

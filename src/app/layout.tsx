@@ -39,6 +39,23 @@ export default function RootLayout({
       className={`${inter.variable} ${spaceMono.variable} ${syne.variable} h-full antialiased`}
     >
       <body className="font-sans min-h-screen bg-background text-foreground overflow-x-hidden selection:bg-neon-blue selection:text-black">
+        {/* GLOBAL SVG FILTERS */}
+        <svg className="hidden">
+          <defs>
+            <filter id="true-neon-glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feColorMatrix in="SourceGraphic" type="matrix"
+                values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.2126 0.7152 0.0722 0 0"
+                result="luminanceAlpha" />
+              <feComponentTransfer in="luminanceAlpha" result="cleanAlpha">
+                <feFuncA type="linear" slope="5" intercept="-0.5" />
+              </feComponentTransfer>
+              <feDropShadow in="cleanAlpha" dx="0" dy="0" stdDeviation="4" floodColor="#00f3ff" floodOpacity="1" result="glow1" />
+              <feDropShadow in="glow1" dx="0" dy="0" stdDeviation="15" floodColor="#00f3ff" floodOpacity="1" result="glow2" />
+              <feDropShadow in="glow2" dx="0" dy="0" stdDeviation="30" floodColor="#00f3ff" floodOpacity="0.8" result="glow3" />
+            </filter>
+          </defs>
+        </svg>
+
         {children}
       </body>
     </html>
