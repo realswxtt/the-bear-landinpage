@@ -67,7 +67,7 @@ export const menuData: MenuItem[] = [
 
     // --- ENTRADAS ---
     { id: "en1", title: "Leche de Tigre clasica", description: "", price: 13, category: "ENTRADAS" },
-    { id: "en2", title: "Leche de Tigre Espeial", description: "", price: 15, category: "ENTRADAS" },
+    { id: "en2", title: "Leche de Tigre Especial", description: "", price: 15, category: "ENTRADAS" },
     {
         id: "en3",
         title: "Leche Criolla",

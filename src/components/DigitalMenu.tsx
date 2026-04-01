@@ -34,6 +34,7 @@ const getCategoryIcon = (cat: string) => {
 export default function DigitalMenu() {
     const [activeCategory, setActiveCategory] = useState<string>("ESPECIALIDADES");
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [selectedItem, setSelectedItem] = useState<any>(null);
 
     // Optimized filtering and splitting
     const { featuredItems, regularItems } = useMemo(() => {
@@ -142,9 +143,6 @@ export default function DigitalMenu() {
                                                 : "text-neutral-500 hover:bg-[#111] hover:text-white"
                                                 }`}
                                         >
-                                            <span className={`opacity-80 scale-90 ${activeCategory === cat ? 'drop-shadow-[0_0_8px_rgba(0,243,255,0.6)]' : ''}`}>
-                                                {getCategoryIcon(cat)}
-                                            </span>
                                             {cat}
                                         </button>
                                     ))}
@@ -154,7 +152,7 @@ export default function DigitalMenu() {
                     </AnimatePresence>
                 </div>
 
-                {/* CONTENIDO LISTA (Refactored for Featured Visuals) */}
+                {/* CONTENIDO LISTA */}
                 <div className="max-w-6xl mx-auto px-6 md:px-12 mt-12 mb-20 min-h-[50vh] w-full">
                     <AnimatePresence mode="wait">
                         <motion.div
@@ -165,12 +163,12 @@ export default function DigitalMenu() {
                             transition={{ duration: 0.3, ease: "easeOut" }}
                             className="w-full"
                         >
-                            {/* 1. SECCIÓN DESTACADOS (Visual) */}
+                            {/* 1. SECCIÓN DESTACADOS */}
                             {featuredItems.length > 0 && (
                                 <div className="mb-20">
                                     <div className="flex items-center gap-4 mb-10 overflow-hidden">
                                         <div className="h-px bg-neon-blue/30 grow" />
-                                        <h3 className="text-neon-blue font-mono text-[10px] tracking-[0.4em] uppercase whitespace-nowrap drop-shadow-[0_0_8px_rgba(0,243,255,0.4)]">
+                                        <h3 className="text-neon-blue font-mono text-[10px] tracking-[0.4em] uppercase whitespace-nowrap">
                                             Selecciones del Oso
                                         </h3>
                                         <div className="h-px bg-neon-blue/30 grow" />
@@ -180,11 +178,12 @@ export default function DigitalMenu() {
                                         {featuredItems.map((item) => (
                                             <motion.div
                                                 key={item.id}
+                                                layoutId={`item-${item.id}`}
+                                                onClick={() => setSelectedItem(item)}
                                                 whileHover={{ y: -5 }}
-                                                className="group relative flex flex-col md:flex-row gap-6 bg-[#111]/40 border border-neutral-900 rounded-2xl overflow-hidden hover:border-neon-blue/40 transition-all p-4"
+                                                className="group relative flex flex-col md:flex-row gap-6 bg-[#111]/40 border border-neutral-900 rounded-2xl overflow-hidden hover:border-neon-blue/40 transition-all p-4 cursor-pointer"
                                             >
-                                                {/* Imagen del Plato */}
-                                                <div className="relative aspect-square md:w-48 shrink-0 overflow-hidden rounded-xl bg-black">
+                                                <div className="relative aspect-square md:w-48 grow shrink-0 overflow-hidden rounded-xl bg-black">
                                                     <Image
                                                         src={item.image!}
                                                         alt={item.title}
@@ -194,7 +193,6 @@ export default function DigitalMenu() {
                                                     <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent" />
                                                 </div>
 
-                                                {/* Info */}
                                                 <div className="flex flex-col justify-center grow py-2">
                                                     <div className="flex justify-between items-start mb-2">
                                                         <h4 className="text-xl md:text-2xl font-black text-white uppercase leading-tight group-hover:text-neon-blue transition-colors">
@@ -204,12 +202,12 @@ export default function DigitalMenu() {
                                                             <span className="text-[10px] font-mono opacity-50 mr-1 text-white">S/</span>{item.price}
                                                         </span>
                                                     </div>
-                                                    <p className="text-neutral-400 text-[10px] md:text-xs font-mono uppercase tracking-widest leading-relaxed">
+                                                    <p className="text-neutral-400 text-[10px] md:text-xs font-mono uppercase tracking-widest leading-relaxed line-clamp-2">
                                                         {item.description}
                                                     </p>
                                                     <div className="mt-4 flex items-center gap-2">
-                                                        <span className="w-2 h-2 rounded-full bg-neon-blue animate-pulse shadow-[0_0_8px_#00f3ff]" />
-                                                        <span className="text-[9px] font-mono text-neon-blue/80 uppercase tracking-widest">Plato Estrella</span>
+                                                        <span className="text-[9px] font-mono text-neon-blue/80 uppercase tracking-widest">Ver detalle</span>
+                                                        <div className="w-1 h-1 rounded-full bg-neon-blue/50" />
                                                     </div>
                                                 </div>
                                             </motion.div>
@@ -218,28 +216,35 @@ export default function DigitalMenu() {
                                 </div>
                             )}
 
-                            {/* 2. LISTA REGULAR (Tipográfica) */}
+                            {/* 2. LISTA REGULAR */}
                             {regularItems.length > 0 && (
                                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-12">
                                     {regularItems.map((item) => {
                                         const isExclusive = item.title.toUpperCase().includes("THE BEAR");
+                                        const hasImage = !!item.image;
                                         return (
-                                            <div key={item.id} className="flex flex-col w-full group">
-                                                {/* Fila: Nombre [dots] Precio */}
+                                            <div
+                                                key={item.id}
+                                                onClick={() => hasImage && setSelectedItem(item)}
+                                                className={`flex flex-col w-full group ${hasImage ? 'cursor-pointer' : ''}`}
+                                            >
                                                 <div className="flex items-baseline w-full justify-between mb-2">
                                                     <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 shrink-0 max-w-[70%]">
                                                         <h4 className="font-bold text-lg md:text-2xl text-[#f5f5f5] uppercase tracking-[-0.03em] transition-colors group-hover:text-white">
                                                             {item.title}
                                                         </h4>
+                                                        {hasImage && (
+                                                            <div className="w-2 h-2 rounded-full bg-neon-blue animate-pulse" title="Tiene foto" />
+                                                        )}
                                                         {isExclusive && (
-                                                            <span className="text-neon-blue font-mono text-[9px] md:text-[10px] uppercase tracking-[0.25em] border border-neon-blue/30 px-2 py-0.5 rounded-sm drop-shadow-[0_0_5px_rgba(0,243,255,0.4)]">
+                                                            <span className="text-neon-blue font-mono text-[9px] md:text-[10px] uppercase tracking-[0.25em] border border-neon-blue/30 px-2 py-0.5 rounded-sm">
                                                                 [ EXCLUSIVO ]
                                                             </span>
                                                         )}
                                                     </div>
                                                     <div className="flex-grow border-b-[2px] border-dotted border-neutral-800 mx-4 opacity-70 group-hover:border-neon-blue/40 transition-colors" />
                                                     <span className="font-black text-xl md:text-3xl text-neon-orange shrink-0 transform-gpu group-hover:scale-105 transition-transform origin-right">
-                                                        <span className="text-[10px] md:text-sm font-mono opacity-50 mr-1 text-white">S/</span>{item.price}
+                                                        {item.price}
                                                     </span>
                                                 </div>
                                                 {item.description && (
@@ -252,17 +257,66 @@ export default function DigitalMenu() {
                                     })}
                                 </div>
                             )}
-
-                            {(featuredItems.length === 0 && regularItems.length === 0) && (
-                                <div className="py-32 text-center text-neutral-600 font-mono text-[10px] tracking-[0.2em] uppercase border border-neutral-900/50 rounded-2xl bg-[#111]/10">
-                                    Categoría vacía. El Oso está cocinando.
-                                </div>
-                            )}
                         </motion.div>
                     </AnimatePresence>
                 </div>
-
             </div>
+
+            {/* Modal Detail View */}
+            <AnimatePresence>
+                {selectedItem && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-0 sm:p-4 md:p-8 bg-black/95 backdrop-blur-md">
+                        <motion.div
+                            layoutId={`item-${selectedItem.id}`}
+                            className="relative w-full h-full sm:h-auto sm:max-w-5xl bg-[#111] sm:rounded-3xl overflow-hidden shadow-2xl border border-neutral-800 flex flex-col md:flex-row"
+                        >
+                            <button
+                                onClick={() => setSelectedItem(null)}
+                                className="absolute top-4 right-4 sm:top-6 sm:right-6 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-black/60 text-white hover:bg-neon-orange transition-colors"
+                            >
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+
+                            <div className="w-full md:w-1/2 aspect-square relative h-[40vh] sm:h-80 md:h-[600px] shrink-0">
+                                <Image
+                                    src={selectedItem.image || ""}
+                                    alt={selectedItem.title}
+                                    fill
+                                    className="object-cover"
+                                />
+                            </div>
+
+                            <div className="w-full md:w-1/2 p-6 sm:p-8 md:p-12 flex flex-col justify-center space-y-4 sm:space-y-6 overflow-y-auto max-h-[60vh] sm:max-h-none hide-scrollbar">
+                                <p className="text-neon-blue font-mono text-[10px] uppercase tracking-[0.4em] mb-1">
+                                    {selectedItem.category}
+                                </p>
+                                <h2 className="text-white font-black text-3xl sm:text-4xl md:text-5xl uppercase leading-none mb-4">
+                                    {selectedItem.title}
+                                </h2>
+                                <div className="h-1 w-16 bg-neon-orange mb-6" />
+                                <p className="text-neutral-300 text-base font-mono uppercase tracking-widest leading-relaxed">
+                                    {selectedItem.description || "Un sabor único diseñado para los paladares más exigentes."}
+                                </p>
+                                <div className="flex items-baseline gap-4 mt-8">
+                                    <span className="text-neutral-500 font-mono">TARIFA</span>
+                                    <span className="text-neon-orange font-black text-4xl">
+                                        <span className="text-xs mr-2 opacity-50">S/</span>{selectedItem.price}
+                                    </span>
+                                </div>
+                                <button
+                                    onClick={() => setSelectedItem(null)}
+                                    className="mt-8 px-6 py-3 border border-neutral-700 text-neutral-400 font-bold uppercase tracking-widest rounded-xl hover:bg-white hover:text-black transition-colors inline-block text-xs"
+                                >
+                                    Cerrar Vista
+                                </button>
+                            </div>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
 
             {/* Bloque Final de Ubicación Integrado */}
             <div className="relative z-10 w-full mt-auto border-t border-neutral-900 pt-10">
@@ -270,17 +324,9 @@ export default function DigitalMenu() {
             </div>
 
             <style jsx global>{`
-        /* Ocultar barra de desplazamiento de forma estricta en todo el navegador */
-        .hide-scrollbar {
-          -ms-overflow-style: none !important;  /* IE and Edge */
-          scrollbar-width: none !important;  /* Firefox */
-        }
-        .hide-scrollbar::-webkit-scrollbar {
-          display: none !important;
-          width: 0 !important;
-          height: 0 !important;
-        }
-      `}</style>
+                .hide-scrollbar::-webkit-scrollbar { display: none; }
+                .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+            `}</style>
         </section>
     );
 }
