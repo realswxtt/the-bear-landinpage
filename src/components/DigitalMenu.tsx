@@ -33,6 +33,87 @@ const getCategoryIcon = (cat: string) => {
     }
 };
 
+function MenuItemTiltCard({ item, onClick }: { item: any; onClick: () => void }) {
+    const cardRef = useRef<HTMLDivElement>(null);
+    const innerRef = useRef<HTMLDivElement>(null);
+
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (!cardRef.current || !innerRef.current) return;
+        const rect = cardRef.current.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = (y - centerY) / 20;
+        const rotateY = (centerX - x) / 20;
+
+        gsap.to(innerRef.current, {
+            rotateX,
+            rotateY,
+            scale: 1.02,
+            duration: 0.5,
+            ease: "power2.out"
+        });
+    };
+
+    const handleMouseLeave = () => {
+        if (!innerRef.current) return;
+        gsap.to(innerRef.current, {
+            rotateX: 0,
+            rotateY: 0,
+            scale: 1,
+            duration: 0.5,
+            ease: "power2.out"
+        });
+    };
+
+    return (
+        <div
+            ref={cardRef}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            onClick={onClick}
+            className="perspective-1000 w-full"
+        >
+            <div
+                ref={innerRef}
+                className="featured-card group relative flex flex-col bg-gradient-to-br from-[#111] to-[#050505] border border-neutral-800/80 rounded-3xl overflow-hidden hover:border-neon-blue/60 transition-all p-5 cursor-pointer shadow-lg hover:shadow-neon-blue-500/10 preserve-3d"
+            >
+                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-black mb-6 pointer-events-none transform-translate-z-20">
+                    <Image
+                        src={item.image!}
+                        alt={item.title}
+                        fill
+                        className="object-cover transition-transform duration-1000 group-hover:scale-110 grayscale-[30%] group-hover:grayscale-0"
+                    />
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
+                </div>
+
+                <div className="flex flex-col grow px-2 pointer-events-none transform-translate-z-50">
+                    <div className="flex justify-between items-start mb-4">
+                        <h4 className="text-2xl md:text-3xl font-black text-white uppercase leading-[0.9] tracking-tighter group-hover:text-neon-blue transition-colors">
+                            {item.title}
+                        </h4>
+                        <span className="text-neon-orange font-black text-3xl ml-4 drop-shadow-[0_0_10px_rgba(255,60,0,0.3)]">
+                            <span className="text-xs font-mono opacity-50 mr-1 text-white">S/</span>{item.price}
+                        </span>
+                    </div>
+                    <p className="text-neutral-500 text-xs md:text-sm font-mono uppercase tracking-widest leading-relaxed line-clamp-3 mb-6">
+                        {item.description}
+                    </p>
+                    <div className="mt-auto flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                            <span className="text-[10px] font-black text-neon-blue uppercase tracking-[0.3em]">EXPLORAR</span>
+                            <div className="w-12 h-[1px] bg-neon-blue/40" />
+                        </div>
+                        <Star className="w-4 h-4 text-neon-orange fill-neon-orange/20" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 export default function DigitalMenu() {
     const [activeCategory, setActiveCategory] = useState<string>("ESPECIALIDADES");
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -100,7 +181,7 @@ export default function DigitalMenu() {
     }, { dependencies: [selectedItem] });
 
     return (
-        <section id="menu-digital" className="w-full min-h-screen bg-[#0a0a0a] text-neutral-100 flex flex-col relative font-sans decoration-neutral-800">
+        <section id="menu-digital" className="w-full min-h-screen bg-background text-neutral-100 flex flex-col relative font-sans decoration-neutral-800">
 
             {/* 1. Ambient Noise + Brutalist Grid Background */}
             <div
@@ -226,42 +307,11 @@ export default function DigitalMenu() {
 
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14">
                                         {featuredItems.map((item) => (
-                                            <div
+                                            <MenuItemTiltCard
                                                 key={item.id}
+                                                item={item}
                                                 onClick={() => setSelectedItem(item)}
-                                                className="featured-card group relative flex flex-col bg-gradient-to-br from-[#111] to-[#050505] border border-neutral-800/80 rounded-3xl overflow-hidden hover:border-neon-blue/60 transition-all p-5 cursor-pointer shadow-lg hover:shadow-neon-blue/10"
-                                            >
-                                                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-black mb-6">
-                                                    <Image
-                                                        src={item.image!}
-                                                        alt={item.title}
-                                                        fill
-                                                        className="object-cover transition-transform duration-1000 group-hover:scale-110 grayscale-[30%] group-hover:grayscale-0"
-                                                    />
-                                                    <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
-                                                </div>
-
-                                                <div className="flex flex-col grow px-2">
-                                                    <div className="flex justify-between items-start mb-4">
-                                                        <h4 className="text-2xl md:text-3xl font-black text-white uppercase leading-[0.9] tracking-tighter group-hover:text-neon-blue transition-colors">
-                                                            {item.title}
-                                                        </h4>
-                                                        <span className="text-neon-orange font-black text-3xl ml-4 drop-shadow-[0_0_10px_rgba(255,60,0,0.3)]">
-                                                            <span className="text-xs font-mono opacity-50 mr-1 text-white">S/</span>{item.price}
-                                                        </span>
-                                                    </div>
-                                                    <p className="text-neutral-500 text-xs md:text-sm font-mono uppercase tracking-widest leading-relaxed line-clamp-3 mb-6">
-                                                        {item.description}
-                                                    </p>
-                                                    <div className="mt-auto flex items-center justify-between">
-                                                        <div className="flex items-center gap-2">
-                                                            <span className="text-[10px] font-black text-neon-blue uppercase tracking-[0.3em]">EXPLORAR</span>
-                                                            <div className="w-12 h-[1px] bg-neon-blue/40" />
-                                                        </div>
-                                                        <Star className="w-4 h-4 text-neon-orange fill-neon-orange/20" />
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            />
                                         ))}
                                     </div>
                                 </div>
@@ -319,7 +369,7 @@ export default function DigitalMenu() {
             {/* Modal Detail View */}
             <AnimatePresence>
                 {selectedItem && (
-                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-0 sm:p-6 md:p-10 bg-black/98 backdrop-blur-2xl">
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-0 sm:p-6 md:p-10 bg-black/98 backdrop-blur-2xl">
                         <motion.div
                             ref={modalRef}
                             layoutId={`item-${selectedItem.id}`}

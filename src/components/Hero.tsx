@@ -73,78 +73,91 @@ export default function Hero() {
             <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(circle_at_center,#050c1f_0%,#000000_100%)]" />
 
             {/* 2. Scanning Lines (Brutalist aesthetic - Fills the 'vacio') */}
-            <div className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%]" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[length:100%_2px,3px_100%] bg-repeat opacity-[0.1]" style={{ backgroundImage: `linear-gradient(rgba(0,242,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,242,255,0.1) 1px, transparent 1px)` }}></div>
 
             {/* 3. Cinematric Noise Grain Texture */}
             <div
-                ref={bgRef}
-                className="absolute inset-0 z-0 opacity-[0.08] mix-blend-overlay pointer-events-none"
-                style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-                }}
+                className="absolute inset-0 z-0 pointer-events-none mix-blend-overlay opacity-[0.05]"
+                style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
             />
 
             {/* 4. Floating Sea Sediment / Bubbles */}
             <Bubbles />
 
-            {/* SVG Filter: Convierte el fondo negro en transparente y aplica Neón contorneado en CYAN (#00f2ff) */}
-            <svg className="hidden">
-                <defs>
-                    <filter id="true-neon-glow" x="-50%" y="-50%" width="200%" height="200%">
-                        <feColorMatrix in="SourceGraphic" type="matrix"
-                            values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.2126 0.7152 0.0722 0 0"
-                            result="luminanceAlpha" />
-                        <feComponentTransfer in="luminanceAlpha" result="cleanAlpha">
-                            <feFuncA type="linear" slope="5" intercept="-0.5" />
-                        </feComponentTransfer>
-                        {/* Glow more intense */}
-                        <feDropShadow in="cleanAlpha" dx="0" dy="0" stdDeviation="4" floodColor="#00f3ff" floodOpacity="1" result="glow1" />
-                        <feDropShadow in="glow1" dx="0" dy="0" stdDeviation="15" floodColor="#00f3ff" floodOpacity="1" result="glow2" />
-                        <feDropShadow in="glow2" dx="0" dy="0" stdDeviation="30" floodColor="#00f3ff" floodOpacity="0.8" result="glow3" />
-                    </filter>
-                </defs>
-            </svg>
-
             <div className="relative z-10 flex flex-col items-center flex-1 w-full max-w-2xl mx-auto md:justify-center">
 
                 {/* Coordinate Markers (Brutalist detail to fill space) */}
-                <div className="absolute top-4 left-0 hidden md:block text-[10px] font-mono text-neon-blue/20 rotate-[-90deg] translate-x-[-50%] uppercase tracking-[0.5em]">Lat: 13.16° S / Long: 74.22° W</div>
-                <div className="absolute top-4 right-0 hidden md:block text-[10px] font-mono text-neon-blue/20 rotate-90 translate-x-[50%] uppercase tracking-[0.5em]">The Bear // Raw & Wild</div>
+                <div className="absolute right-[-40px] top-1/2 -translate-y-1/2 -rotate-90 text-[8px] font-mono text-neutral-600 tracking-[0.5em] whitespace-nowrap opacity-40">Lat: 13.16° S / Long: 74.22° W</div>
+                <div className="absolute left-[-40px] top-1/2 -translate-y-1/2 rotate-90 text-[8px] font-mono text-neutral-600 tracking-[0.5em] whitespace-nowrap opacity-40">The Bear // Raw & Wild</div>
 
                 {/* 1. Centered Large Logo (Better blending and placement) */}
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.8, y: 20 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-                    className="relative w-80 h-80 sm:w-96 sm:h-96 md:w-[500px] md:h-[500px] z-20 mix-blend-screen"
-                    style={{ filter: "url(#true-neon-glow)" }}
+                    initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
+                    animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                    transition={{ duration: 1.2, ease: "easeOut" }}
+                    className="relative w-full max-w-md aspect-square mb-6 md:mb-10 pointer-events-none"
+                    onMouseMove={(e) => {
+                        const { clientX, clientY, currentTarget } = e;
+                        const { left, top, width, height } = currentTarget.getBoundingClientRect();
+                        const x = (clientX - left) / width - 0.5;
+                        const y = (clientY - top) / height - 0.5;
+                        gsap.to(currentTarget, {
+                            rotateY: x * 10,
+                            rotateX: -y * 10,
+                            duration: 0.5,
+                            ease: "power2.out"
+                        });
+                    }}
+                    onMouseLeave={(e) => {
+                        gsap.to(e.currentTarget, {
+                            rotateY: 0,
+                            rotateX: 0,
+                            duration: 0.5,
+                            ease: "power2.out"
+                        });
+                    }}
                 >
                     <Image
-                        src="/logo-the-bear-icon.png"
+                        src="/logobear.jpeg"
                         alt="The Bear Logo"
                         fill
-                        className="object-contain"
-                        sizes="(max-width: 480px) 320px, (max-width: 768px) 384px, 500px"
                         priority
+                        className="object-contain mix-blend-screen brightness-125 contrast-125"
                     />
+                    {/* SVG filter for the logo to remove black edges more aggressively */}
+                    <div className="hidden">
+                        <svg>
+                            <filter id="remove-black">
+                                <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  -1 -1 -1 1 0" />
+                            </filter>
+                        </svg>
+                    </div>
                 </motion.div>
 
-                {/* 2. Slogan & Description (Closer to Logo) */}
-                <div className="text-center space-y-2 w-full mt-[-30px] md:mt-[-50px]">
-                    <h1 className="text-[var(--font-size-hero)] font-black tracking-tighter text-white uppercase leading-[0.85] drop-shadow-[0_0_35px_rgba(0,243,255,0.7)] selection:bg-neon-blue selection:text-black">
-                        Fuerza Salvaje. <br className="hidden sm:block" />
-                        <span className="text-white brightness-200">Frescura Pura.</span>
-                    </h1>
-
-                    {/* 3. Description Paragraph (Tighter) */}
-                    <p className="text-neutral-400 text-xs sm:text-sm md:text-lg font-mono leading-relaxed tracking-wider mt-6 md:mt-8 mb-10 md:mb-14 max-w-sm mx-auto px-6 opacity-70">
-                        Siente el golpe del mar en cada bocado. THE BEAR, ceviche con técnica y alma en Ayacucho.
-                    </p>
+                {/* 2. Slogan and Brand Content */}
+                <div className="text-center space-y-6 px-4">
+                    <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.5 }}
+                        className="space-y-2"
+                    >
+                        <h1 className="text-neon-orange font-syne font-black text-6xl md:text-8xl lg:text-9xl uppercase tracking-tighter leading-[0.8] mb-2 drop-shadow-[0_0_15px_rgba(255,60,0,0.4)]">
+                            THE BEAR
+                        </h1>
+                        <div className="flex items-center justify-center gap-4 text-neon-blue font-mono text-[10px] md:text-sm tracking-[0.5em] uppercase">
+                            <span className="h-px w-8 bg-neon-blue/40" />
+                            <span>Técnica y Alma</span>
+                            <span className="h-px w-8 bg-neon-blue/40" />
+                        </div>
+                    </motion.div>
                 </div>
 
+                {/* 3. Primary CTA */}
                 <div className="w-full mt-auto md:mt-0 mb-6 flex justify-center z-20">
                     <Link href="/reservas" className="w-full max-w-[340px] py-7 rounded-2xl border-2 border-neon-blue/40 bg-neon-blue/5 text-white font-black text-lg tracking-[0.3em] uppercase shadow-[0_0_25px_rgba(0,243,255,0.25)] active:scale-[0.95] transition-all hover:bg-neon-blue/15 hover:border-neon-blue hover:shadow-[0_0_50px_rgba(0,243,255,0.6)] text-center flex items-center justify-center backdrop-blur-3xl group relative overflow-hidden">
-                        <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent)] translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+                        <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent)] -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                        <span className="absolute inset-0 bg-white -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out opacity-20"></span>
                         <span className="relative z-10 group-hover:scale-105 transition-transform">Reserva tu mesa</span>
                     </Link>
                 </div>

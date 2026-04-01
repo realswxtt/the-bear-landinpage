@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 interface Dish {
     id: number;
@@ -32,11 +34,88 @@ const dishes: Dish[] = [
     },
 ];
 
+function TiltCard({ dish, onClick }: { dish: Dish; onClick: () => void }) {
+    const cardRef = useRef<HTMLDivElement>(null);
+    const innerRef = useRef<HTMLDivElement>(null);
+
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (!cardRef.current || !innerRef.current) return;
+
+        const rect = cardRef.current.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = (y - centerY) / 10;
+        const rotateY = (centerX - x) / 10;
+
+        gsap.to(innerRef.current, {
+            rotateX: rotateX,
+            rotateY: rotateY,
+            scale: 1.05,
+            duration: 0.5,
+            ease: "power2.out"
+        });
+    };
+
+    const handleMouseLeave = () => {
+        if (!innerRef.current) return;
+        gsap.to(innerRef.current, {
+            rotateX: 0,
+            rotateY: 0,
+            scale: 1,
+            duration: 0.5,
+            ease: "power2.out"
+        });
+    };
+
+    return (
+        <div
+            ref={cardRef}
+            className="perspective-1000 w-full aspect-[3/4]"
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            onClick={onClick}
+        >
+            <motion.div
+                ref={innerRef}
+                layoutId={`card-${dish.id}`}
+                className="relative w-full h-full cursor-pointer group overflow-hidden rounded-2xl border border-neutral-800/50 bg-[#111] preserve-3d"
+            >
+                <div className="w-full h-full relative overflow-hidden pointer-events-none transform-translate-z-20">
+                    <Image
+                        src={dish.image}
+                        alt={dish.name}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
+                </div>
+
+                <div className="absolute bottom-0 left-0 w-full p-8 space-y-2 pointer-events-none transform-translate-z-50">
+                    <p className="text-neon-blue font-sans font-bold text-sm uppercase tracking-widest">
+                        Selección del Mar
+                    </p>
+                    <h3 className="text-white font-syne font-black text-2xl md:text-3xl uppercase leading-tight">
+                        {dish.name}
+                    </h3>
+                </div>
+
+                {/* Hover effect overlay */}
+                <div className="absolute inset-0 border-2 border-neon-orange opacity-0 group-hover:opacity-100 pointer-events-none rounded-2xl transition-opacity duration-300" />
+            </motion.div>
+        </div>
+    );
+}
+
 export default function SignatureDishes() {
     const [selectedId, setSelectedId] = useState<number | null>(null);
 
     return (
-        <section className="bg-[#0a0a0a] py-24 px-6 md:px-12 w-full overflow-hidden">
+        <section className="bg-background py-24 px-6 md:px-12 w-full overflow-hidden">
             <div className="max-w-7xl mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -56,40 +135,7 @@ export default function SignatureDishes() {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {dishes.map((dish) => (
-                        <motion.div
-                            key={dish.id}
-                            layoutId={`card-${dish.id}`}
-                            onClick={() => setSelectedId(dish.id)}
-                            className="relative aspect-[3/4] cursor-pointer group overflow-hidden rounded-2xl border border-neutral-800/50 bg-[#111]"
-                            whileHover={{ scale: 1.02 }}
-                            transition={{ duration: 0.3 }}
-                        >
-                            <motion.div className="w-full h-full relative overflow-hidden">
-                                <Image
-                                    src={dish.image}
-                                    alt={dish.name}
-                                    fill
-                                    sizes="(max-width: 768px) 100vw, 33vw"
-                                    className="object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
-                            </motion.div>
-
-                            <div className="absolute bottom-0 left-0 w-full p-8 space-y-2">
-                                <motion.p className="text-neon-blue font-sans font-bold text-sm uppercase tracking-widest">
-                                    Selección del Mar
-                                </motion.p>
-                                <h3 className="text-white font-syne font-black text-2xl md:text-3xl uppercase leading-tight">
-                                    {dish.name}
-                                </h3>
-                            </div>
-
-                            {/* Hover effect overlay */}
-                            <motion.div
-                                className="absolute inset-0 border-2 border-neon-orange opacity-0 pointer-events-none rounded-2xl"
-                                whileHover={{ opacity: 1 }}
-                            />
-                        </motion.div>
+                        <TiltCard key={dish.id} dish={dish} onClick={() => setSelectedId(dish.id)} />
                     ))}
                 </div>
 
