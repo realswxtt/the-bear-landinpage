@@ -90,28 +90,41 @@ export default function Hero() {
                 <div className="absolute right-[-20px] top-1/2 -translate-y-1/2 -rotate-90 text-[8px] font-mono text-neutral-600 tracking-[0.5em] whitespace-nowrap opacity-40">Lat: 13.16° S / Long: 74.22° W</div>
                 <div className="absolute top-4 right-0 hidden md:block text-[10px] font-mono text-neon-blue/20 rotate-90 translate-x-[50%] uppercase tracking-[0.5em]">The Bear // Raw & Wild</div>
 
-                {/* 1. Centered Large Logo (Using standard img for better blending control) */}
+                {/* SVG Filter: Convierte el fondo negro en transparente y aplica Neón contorneado en CYAN (#00f2ff) */}
+                <svg className="hidden">
+                    <defs>
+                        <filter id="true-neon-glow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feColorMatrix in="SourceGraphic" type="matrix"
+                                values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.2126 0.7152 0.0722 0 0"
+                                result="luminanceAlpha" />
+                            <feComponentTransfer in="luminanceAlpha" result="cleanAlpha">
+                                <feFuncA type="linear" slope="5" intercept="-0.5" />
+                            </feComponentTransfer>
+                            {/* Glow more intense */}
+                            <feDropShadow in="cleanAlpha" dx="0" dy="0" stdDeviation="4" floodColor="#00f3ff" floodOpacity="1" result="glow1" />
+                            <feDropShadow in="glow1" dx="0" dy="0" stdDeviation="15" floodColor="#00f3ff" floodOpacity="1" result="glow2" />
+                            <feDropShadow in="glow2" dx="0" dy="0" stdDeviation="30" floodColor="#00f3ff" floodOpacity="0.8" result="glow3" />
+                        </filter>
+                    </defs>
+                </svg>
+
+                {/* 1. Centered Large Logo (With perfect Neon Glow blending) */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.8, y: 20 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-                    className="relative w-80 h-80 sm:w-96 sm:h-96 md:w-[500px] md:h-[500px] z-20 flex items-center justify-center overflow-hidden"
+                    className="relative w-80 h-80 sm:w-96 sm:h-96 md:w-[500px] md:h-[500px] z-20 mix-blend-screen"
+                    style={{ filter: "url(#true-neon-glow)" }}
                 >
-                    <img
+                    <Image
                         src="/logo-the-bear-icon.png"
                         alt="The Bear Logo"
-                        className="w-full h-full object-contain mix-blend-screen"
-                        style={{ filter: "contrast(200%) brightness(120%) grayscale(1)" }}
+                        fill
+                        priority
+                        className="object-contain"
+                        sizes="(max-width: 480px) 320px, (max-width: 768px) 384px, 500px"
                     />
                 </motion.div>
-
-                {/* Applying the filter via a wrapper if needed, but mix-blend-screen usually works with true black. 
-                    Let's use a CSS filter to force true black if the image has greyish backgrounds. */}
-                <style jsx>{`
-                    .mix-blend-screen {
-                        filter: contrast(120%) brightness(110%);
-                    }
-                `}</style>
 
                 {/* 2. Slogan & Description (Closer to Logo) */}
                 <div className="text-center space-y-2 w-full mt-[-30px] md:mt-[-50px]">
