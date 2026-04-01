@@ -67,21 +67,24 @@ export default function Hero() {
     }, []);
 
     return (
-        <section className="relative w-full min-h-screen overflow-hidden flex flex-col px-4 sm:px-6 pt-24 pb-12 bg-black">
+        <section className="relative w-full min-h-screen overflow-hidden flex flex-col px-4 sm:px-6 pt-20 pb-8 bg-black">
 
-            {/* 1. Deep Sea Radial Gradient Background */}
-            <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,_#020817_0%,_#000000_80%)]" />
+            {/* 1. Deep Sea Radial Gradient Background (Deeper and more focused) */}
+            <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(circle_at_center,#050c1f_0%,#000000_100%)]" />
 
-            {/* 2. Cinematric Noise Grain Texture (Opacity 6%) */}
+            {/* 2. Scanning Lines (Brutalist aesthetic - Fills the 'vacio') */}
+            <div className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%]" />
+
+            {/* 3. Cinematric Noise Grain Texture */}
             <div
                 ref={bgRef}
-                className="absolute inset-0 z-0 opacity-[0.05] mix-blend-overlay pointer-events-none"
+                className="absolute inset-0 z-0 opacity-[0.08] mix-blend-overlay pointer-events-none"
                 style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
                 }}
             />
 
-            {/* 3. Floating Sea Sediment / Bubbles */}
+            {/* 4. Floating Sea Sediment / Bubbles */}
             <Bubbles />
 
             {/* SVG Filter: Convierte el fondo negro en transparente y aplica Neón contorneado en CYAN (#00f2ff) */}
@@ -94,21 +97,26 @@ export default function Hero() {
                         <feComponentTransfer in="luminanceAlpha" result="cleanAlpha">
                             <feFuncA type="linear" slope="5" intercept="-0.5" />
                         </feComponentTransfer>
-                        <feDropShadow in="cleanAlpha" dx="0" dy="0" stdDeviation="3" floodColor="#00f2ff" floodOpacity="1" result="glow1" />
-                        <feDropShadow in="glow1" dx="0" dy="0" stdDeviation="10" floodColor="#00f2ff" floodOpacity="0.8" result="glow2" />
-                        <feDropShadow in="glow2" dx="0" dy="0" stdDeviation="20" floodColor="#00f2ff" floodOpacity="0.5" result="glow3" />
+                        {/* Glow more intense */}
+                        <feDropShadow in="cleanAlpha" dx="0" dy="0" stdDeviation="4" floodColor="#00f3ff" floodOpacity="1" result="glow1" />
+                        <feDropShadow in="glow1" dx="0" dy="0" stdDeviation="15" floodColor="#00f3ff" floodOpacity="1" result="glow2" />
+                        <feDropShadow in="glow2" dx="0" dy="0" stdDeviation="30" floodColor="#00f3ff" floodOpacity="0.8" result="glow3" />
                     </filter>
                 </defs>
             </svg>
 
-            <div className="relative z-10 flex flex-col items-center flex-1 w-full max-w-2xl mx-auto mt-6 md:justify-center">
+            <div className="relative z-10 flex flex-col items-center flex-1 w-full max-w-2xl mx-auto md:justify-center">
 
-                {/* 1. Centered Large Logo (Con filtro SVG avanzado) */}
+                {/* Coordinate Markers (Brutalist detail to fill space) */}
+                <div className="absolute top-4 left-0 hidden md:block text-[10px] font-mono text-neon-blue/20 rotate-[-90deg] translate-x-[-50%] uppercase tracking-[0.5em]">Lat: 13.16° S / Long: 74.22° W</div>
+                <div className="absolute top-4 right-0 hidden md:block text-[10px] font-mono text-neon-blue/20 rotate-90 translate-x-[50%] uppercase tracking-[0.5em]">The Bear // Raw & Wild</div>
+
+                {/* 1. Centered Large Logo (Better blending and placement) */}
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.9, y: 10 }}
+                    initial={{ opacity: 0, scale: 0.8, y: 20 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
-                    transition={{ duration: 1, ease: "easeOut" }}
-                    className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-[450px] md:h-[450px] mb-4 md:mb-8 z-20"
+                    transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                    className="relative w-80 h-80 sm:w-96 sm:h-96 md:w-[500px] md:h-[500px] z-20 mix-blend-screen"
                     style={{ filter: "url(#true-neon-glow)" }}
                 >
                     <Image
@@ -116,27 +124,28 @@ export default function Hero() {
                         alt="The Bear Logo"
                         fill
                         className="object-contain"
-                        sizes="(max-width: 480px) 256px, (max-width: 768px) 320px, 450px"
+                        sizes="(max-width: 480px) 320px, (max-width: 768px) 384px, 500px"
                         priority
                     />
                 </motion.div>
 
-                {/* 2. Slogan */}
-                <div className="text-center space-y-4 w-full">
-                    <h1 className="text-[var(--font-size-hero)] font-black tracking-tighter text-white uppercase leading-[0.95] drop-shadow-[0_0_20px_rgba(0,242,255,0.6)]">
+                {/* 2. Slogan & Description (Closer to Logo) */}
+                <div className="text-center space-y-2 w-full mt-[-30px] md:mt-[-50px]">
+                    <h1 className="text-[var(--font-size-hero)] font-black tracking-tighter text-white uppercase leading-[0.85] drop-shadow-[0_0_35px_rgba(0,243,255,0.7)] selection:bg-neon-blue selection:text-black">
                         Fuerza Salvaje. <br className="hidden sm:block" />
-                        <span className="text-white brightness-125">Frescura Pura.</span>
+                        <span className="text-white brightness-200">Frescura Pura.</span>
                     </h1>
 
-                    {/* 3. Description Paragraph */}
-                    <p className="text-neutral-400 text-sm sm:text-base md:text-lg font-sans leading-relaxed tracking-wide mt-4 md:mt-8 mb-8 md:mb-12 max-w-md mx-auto px-4">
+                    {/* 3. Description Paragraph (Tighter) */}
+                    <p className="text-neutral-400 text-xs sm:text-sm md:text-lg font-mono leading-relaxed tracking-wider mt-6 md:mt-8 mb-10 md:mb-14 max-w-sm mx-auto px-6 opacity-70">
                         Siente el golpe del mar en cada bocado. THE BEAR, ceviche con técnica y alma en Ayacucho.
                     </p>
                 </div>
 
                 <div className="w-full mt-auto md:mt-0 mb-6 flex justify-center z-20">
-                    <Link href="/reservas" className="w-full max-w-[340px] py-5 rounded-2xl border-2 border-[#00f2ff]/40 bg-[#020817]/60 text-white font-black text-lg tracking-[0.2em] uppercase shadow-[0_0_25px_rgba(0,242,255,0.25)] active:scale-[0.96] transition-all hover:bg-[#00f2ff]/10 hover:border-[#00f2ff] hover:shadow-[0_0_40px_rgba(0,242,255,0.5)] text-center flex items-center justify-center backdrop-blur-sm">
-                        Reserva tu mesa
+                    <Link href="/reservas" className="w-full max-w-[340px] py-7 rounded-2xl border-2 border-neon-blue/40 bg-neon-blue/5 text-white font-black text-lg tracking-[0.3em] uppercase shadow-[0_0_25px_rgba(0,243,255,0.25)] active:scale-[0.95] transition-all hover:bg-neon-blue/15 hover:border-neon-blue hover:shadow-[0_0_50px_rgba(0,243,255,0.6)] text-center flex items-center justify-center backdrop-blur-3xl group relative overflow-hidden">
+                        <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent)] translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+                        <span className="relative z-10 group-hover:scale-105 transition-transform">Reserva tu mesa</span>
                     </Link>
                 </div>
             </div>
