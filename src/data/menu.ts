@@ -4,6 +4,8 @@ export interface MenuItem {
     description: string;
     price: number;
     category: string;
+    image?: string;
+    isFeatured?: boolean;
 }
 
 export const menuCategories = [
@@ -26,29 +28,101 @@ export const menuCategories = [
 
 export const menuData: MenuItem[] = [
     // --- ESPECIALIDADES ---
-    { id: "e1", title: "CHAUFA SALVAJE", description: "", price: 20, category: "ESPECIALIDADES" },
-    { id: "e2", title: "FETTUCCINE /PACÍFICO", description: "", price: 18, category: "ESPECIALIDADES" },
-    { id: "e3", title: "CEVICHE MIXTO", description: "", price: 25, category: "ESPECIALIDADES" },
-    { id: "e4", title: "L.DE TIGRE THE BEAR", description: "", price: 22, category: "ESPECIALIDADES" },
+    {
+        id: "e1",
+        title: "CHAUFA SALVAJE",
+        description: "Arroz chaufa con mixtura de mariscos y el toque ahumado del wok salvaje.",
+        price: 20,
+        category: "ESPECIALIDADES",
+        image: "/dishes/ai-chaufa-salvaje.png",
+        isFeatured: true
+    },
+    {
+        id: "e2",
+        title: "FETTUCCINE /PACÍFICO",
+        description: "Pasta artesanal en crema de ají amarillo con ceviche de la casa.",
+        price: 18,
+        category: "ESPECIALIDADES",
+        image: "/dishes/ai-fettuccine-pacifico.png",
+        isFeatured: true
+    },
+    {
+        id: "e3",
+        title: "CEVICHE MIXTO",
+        description: "Pescado, pulpo y langostinos en leche de tigre de autor.",
+        price: 25,
+        category: "ESPECIALIDADES",
+        image: "/dishes/ai-ceviche-mixto.png",
+        isFeatured: true
+    },
+    {
+        id: "e4",
+        title: "L.DE TIGRE THE BEAR",
+        description: "Brutal concentrado de mar con trozos de chicharrón y mariscos frescos.",
+        price: 22,
+        category: "ESPECIALIDADES",
+        image: "/dishes/ai-leche-tigre-bear.png",
+        isFeatured: true
+    },
 
     // --- ENTRADAS ---
     { id: "en1", title: "Leche de Tigre clasica", description: "", price: 13, category: "ENTRADAS" },
     { id: "en2", title: "Leche de Tigre Espeial", description: "", price: 15, category: "ENTRADAS" },
-    { id: "en3", title: "Leche Criolla", description: "", price: 18, category: "ENTRADAS" },
-    { id: "en4", title: "Causa Acevichada The Bear", description: "", price: 20, category: "ENTRADAS" },
+    {
+        id: "en3",
+        title: "Leche Criolla",
+        description: "Crema de ají amarillo con dados de pescado y chicharrón de pota.",
+        price: 18,
+        category: "ENTRADAS",
+        image: "/dishes/ai-leche-criolla.png",
+        isFeatured: true
+    },
+    {
+        id: "en4",
+        title: "Causa Acevichada The Bear",
+        description: "Masa de causa rellena de cangrejo y coronada con un ceviche brutal.",
+        price: 20,
+        category: "ENTRADAS",
+        image: "/dishes/ai-causa-acevichada.png",
+        isFeatured: true
+    },
     { id: "en5", title: "Causa De pulpo a la Parrilla", description: "", price: 20, category: "ENTRADAS" },
     { id: "en6", title: "Papa Rellena Acevichada", description: "", price: 18, category: "ENTRADAS" },
 
     // --- CEVICHES ---
-    { id: "cv1", title: "ceviche de pescado", description: "", price: 20, category: "CEVICHES" },
-    { id: "cv2", title: "cevche norteño", description: "", price: 20, category: "CEVICHES" },
+    { id: "cv1", title: "ceviche de pescado", description: "Clásico, fresco y punzante.", price: 20, category: "CEVICHES" },
+    {
+        id: "cv2",
+        title: "cevche norteño",
+        description: "Con el toque cítrico del norte y su zarandaja.",
+        price: 20,
+        category: "CEVICHES",
+        image: "/dishes/ai-ceviche-norteno.png",
+        isFeatured: true
+    },
     { id: "cv3", title: "ceviche mixto", description: "", price: 25, category: "CEVICHES" },
     { id: "cv4", title: "ceviche pateado", description: "", price: 20, category: "CEVICHES" },
     { id: "cv5", title: "ceviche de langostinos", description: "", price: 30, category: "CEVICHES" },
-    { id: "cv6", title: "ceviche de conchas negras", description: "", price: 35, category: "CEVICHES" },
+    {
+        id: "cv6",
+        title: "ceviche de conchas negras",
+        description: "Concentrado de poder marino directo de Tumbes.",
+        price: 35,
+        category: "CEVICHES",
+        image: "/dishes/ai-conchas-negras.png",
+        isFeatured: true
+    },
 
     // --- ARROCES ---
-    { id: "ar1", title: "arroz con mariscos", description: "", price: 20, category: "ARROCES" },
+    {
+        id: "ar1",
+        title: "arroz con mariscos",
+        description: "Meloso, potente y cargado de sabor coral.",
+        price: 20,
+        category: "ARROCES",
+        image: "/dishes/ai-arroz-mariscos.png",
+        isFeatured: true
+    },
     { id: "ar2", title: "arroz con langostinos", description: "", price: 25, category: "ARROCES" },
     { id: "ar3", title: "arroz criollo", description: "", price: 20, category: "ARROCES" },
     { id: "ar4", title: "chaufa de mariscos", description: "", price: 18, category: "ARROCES" },
@@ -64,7 +138,15 @@ export const menuData: MenuItem[] = [
     { id: "ch5", title: "chicharron de langostinos", description: "", price: 30, category: "CHICHARRONES" },
     { id: "ch6", title: "cabrilla frita", description: "", price: 25, category: "CHICHARRONES" },
     { id: "ch7", title: "chita frita", description: "", price: 25, category: "CHICHARRONES" },
-    { id: "ch8", title: "jalea mixta", description: "", price: 28, category: "CHICHARRONES" },
+    {
+        id: "ch8",
+        title: "jalea mixta",
+        description: "Crujiente selección de mariscos fritos con su sarsa criolla.",
+        price: 28,
+        category: "CHICHARRONES",
+        image: "/dishes/ai-jalea-mixta.png",
+        isFeatured: true
+    },
 
     // --- SOPAS ---
     { id: "sp1", title: "chilcano especial", description: "", price: 13, category: "SOPAS" },
@@ -87,7 +169,15 @@ export const menuData: MenuItem[] = [
     // --- PARIGUELAS ---
     { id: "pr1", title: "pariguela de filete", description: "", price: 25, category: "PARIGUELAS" },
     { id: "pr2", title: "pariguela de cabrilla", description: "", price: 28, category: "PARIGUELAS" },
-    { id: "pr3", title: "pariguela de tranboyo", description: "", price: 28, category: "PARIGUELAS" },
+    {
+        id: "pr3",
+        title: "pariguela de tranboyo",
+        description: "Sopa potente y revitalizante con pescado entero.",
+        price: 28,
+        category: "PARIGUELAS",
+        image: "/dishes/ai-pariguela.png",
+        isFeatured: true
+    },
 
     // --- COMBOS MARINOS ---
     { id: "cm1", title: "DUO 1", description: "ceviche de pescado + chicharron de pota", price: 23, category: "COMBOS MARINOS" },
@@ -98,7 +188,15 @@ export const menuData: MenuItem[] = [
     { id: "cm6", title: "duo 6", description: "ceviche de pescado + chaufa de mariscos", price: 25, category: "COMBOS MARINOS" },
     { id: "cm7", title: "duo 7", description: "ceviche de pescado + chaufa de pescado", price: 25, category: "COMBOS MARINOS" },
     { id: "cm8", title: "duo 8", description: "ceviche mixto + chicharron de pota", price: 28, category: "COMBOS MARINOS" },
-    { id: "cm9", title: "duo 9 the bear", description: "ceviche mixto + chicharron mixto", price: 28, category: "COMBOS MARINOS" },
+    {
+        id: "cm9",
+        title: "duo 9 the bear",
+        description: "El dúo legendario: ceviche mixto + chicharron mixto.",
+        price: 28,
+        category: "COMBOS MARINOS",
+        image: "/dishes/ai-duo-bear.png",
+        isFeatured: true
+    },
     { id: "cm10", title: "duo 10", description: "ceviche mixto + chicharron de calamar", price: 30, category: "COMBOS MARINOS" },
     { id: "cm11", title: "duo 11", description: "ceviche mixto + arroz con mariscos", price: 28, category: "COMBOS MARINOS" },
 
@@ -111,16 +209,40 @@ export const menuData: MenuItem[] = [
     { id: "tm6", title: "triple 6", description: "ceviche mixto + chicharron de pota + arroz con mariscos", price: 38, category: "TRIOS MARINOS" },
     { id: "tm7", title: "triple 7", description: "ceviche mixto + chicharron de pota + chaufa de mariscos", price: 38, category: "TRIOS MARINOS" },
     { id: "tm8", title: "triple 8", description: "ceviche mixto + chicharron de pescado + arroz con mariscos", price: 38, category: "TRIOS MARINOS" },
-    { id: "tm9", title: "triple 9 the bear", description: "arma tu trio the bear", price: 38, category: "TRIOS MARINOS" },
+    {
+        id: "tm9",
+        title: "triple 9 the bear",
+        description: "Tu combinación favorita en formato triple.",
+        price: 38,
+        category: "TRIOS MARINOS",
+        image: "/dishes/ai-triple-bear.png",
+        isFeatured: true
+    },
 
     // --- PLATOS DESTACADOS THE BEAR ---
     { id: "pd1", title: "fetichini al pacifico", description: "fetuchini a la huancaina con su ceviche", price: 20, category: "PLATOS DESTACADOS THE BEAR" },
     { id: "pd2", title: "fettulomo a la huancaina", description: "fetuchini a la huancaina con su lomo saltado", price: 25, category: "PLATOS DESTACADOS THE BEAR" },
     { id: "pd3", title: "lomo dorado a la huanca pasta", description: "fetuchini a la huancaina con su lomo a la plancha", price: 25, category: "PLATOS DESTACADOS THE BEAR" },
     { id: "pd4", title: "alfredo del mal", description: "fetuchini al alfredo con langostinos", price: 25, category: "PLATOS DESTACADOS THE BEAR" },
-    { id: "pd5", title: "tentaculos a la parrilla", description: "pupo a la parrila", price: 28, category: "PLATOS DESTACADOS THE BEAR" },
+    {
+        id: "pd5",
+        title: "tentaculos a la parrilla",
+        description: "Pulpito a la parrilla con su sazón secreta.",
+        price: 28,
+        category: "PLATOS DESTACADOS THE BEAR",
+        image: "/dishes/ai-tentaculos.png",
+        isFeatured: true
+    },
     { id: "pd6", title: "causa brava de pulpo", description: "causa de pulpo a la parrilla", price: 25, category: "PLATOS DESTACADOS THE BEAR" },
-    { id: "pd7", title: "arroz brabazo the bear", description: "arroz de mariscos con chalaquitas de pota", price: 20, category: "PLATOS DESTACADOS THE BEAR" },
+    {
+        id: "pd7",
+        title: "arroz brabazo the bear",
+        description: "Arroz con mariscos con chalaquitas de pota impactante.",
+        price: 20,
+        category: "PLATOS DESTACADOS THE BEAR",
+        image: "/dishes/ai-arroz-brabazo.png",
+        isFeatured: true
+    },
 
     // --- PORCIONES ---
     { id: "po1", title: "yucas fritas", description: "", price: 5, category: "PORCIONES" },

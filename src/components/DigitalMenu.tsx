@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { menuCategories, menuData } from "@/data/menu";
 import { motion, AnimatePresence } from "framer-motion";
 import Location from "./Location";
 import Link from "next/link";
+import Image from "next/image";
 import {
     Utensils, Fish, Flame, Shell, MenuSquare, ChefHat, Coffee, Wine, Sparkles, Soup, ArrowLeft, Star, GlassWater, ChevronDown
 } from "lucide-react";
@@ -33,7 +34,15 @@ const getCategoryIcon = (cat: string) => {
 export default function DigitalMenu() {
     const [activeCategory, setActiveCategory] = useState<string>("ESPECIALIDADES");
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const items = menuData.filter((i) => i.category === activeCategory);
+
+    // Optimized filtering and splitting
+    const { featuredItems, regularItems } = useMemo(() => {
+        const filtered = menuData.filter((i) => i.category === activeCategory);
+        return {
+            featuredItems: filtered.filter(i => i.isFeatured && i.image),
+            regularItems: filtered.filter(i => !i.isFeatured || !i.image)
+        };
+    }, [activeCategory]);
 
     return (
         <section id="menu-digital" className="w-full min-h-screen bg-[#0a0a0a] text-neutral-100 flex flex-col relative font-sans">
@@ -145,8 +154,8 @@ export default function DigitalMenu() {
                     </AnimatePresence>
                 </div>
 
-                {/* CONTENIDO LISTA (El Cambio Clave) */}
-                <div className="max-w-6xl mx-auto px-6 md:px-12 mt-12 mb-20 min-h-[50vh]">
+                {/* CONTENIDO LISTA (Refactored for Featured Visuals) */}
+                <div className="max-w-6xl mx-auto px-6 md:px-12 mt-12 mb-20 min-h-[50vh] w-full">
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={activeCategory}
@@ -154,50 +163,97 @@ export default function DigitalMenu() {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -15 }}
                             transition={{ duration: 0.3, ease: "easeOut" }}
+                            className="w-full"
                         >
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-12">
-                                {items.map((item) => {
-                                    const isExclusive = item.title.toUpperCase().includes("THE BEAR");
+                            {/* 1. SECCIÓN DESTACADOS (Visual) */}
+                            {featuredItems.length > 0 && (
+                                <div className="mb-20">
+                                    <div className="flex items-center gap-4 mb-10 overflow-hidden">
+                                        <div className="h-px bg-neon-blue/30 grow" />
+                                        <h3 className="text-neon-blue font-mono text-[10px] tracking-[0.4em] uppercase whitespace-nowrap drop-shadow-[0_0_8px_rgba(0,243,255,0.4)]">
+                                            Selecciones del Oso
+                                        </h3>
+                                        <div className="h-px bg-neon-blue/30 grow" />
+                                    </div>
 
-                                    return (
-                                        <div key={item.id} className="flex flex-col w-full group">
-                                            {/* Fila: Nombre [dots] Precio */}
-                                            <div className="flex items-baseline w-full justify-between mb-2">
-
-                                                {/* Izquierda: Nombre y Badge */}
-                                                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 shrink-0 max-w-[70%]">
-                                                    <h4 className="font-bold text-lg md:text-2xl text-[#f5f5f5] uppercase tracking-[-0.03em] transition-colors group-hover:text-white">
-                                                        {item.title}
-                                                    </h4>
-
-                                                    {isExclusive && (
-                                                        <span className="text-[#00f2ff] font-mono text-[9px] md:text-[10px] uppercase tracking-[0.25em] border border-[#00f2ff]/30 px-2 py-0.5 rounded-sm drop-shadow-[0_0_5px_rgba(0,242,255,0.4)]">
-                                                            [ EXCLUSIVO ]
-                                                        </span>
-                                                    )}
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+                                        {featuredItems.map((item) => (
+                                            <motion.div
+                                                key={item.id}
+                                                whileHover={{ y: -5 }}
+                                                className="group relative flex flex-col md:flex-row gap-6 bg-[#111]/40 border border-neutral-900 rounded-2xl overflow-hidden hover:border-neon-blue/40 transition-all p-4"
+                                            >
+                                                {/* Imagen del Plato */}
+                                                <div className="relative aspect-square md:w-48 shrink-0 overflow-hidden rounded-xl bg-black">
+                                                    <Image
+                                                        src={item.image!}
+                                                        alt={item.title}
+                                                        fill
+                                                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                                    />
+                                                    <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent" />
                                                 </div>
 
-                                                {/* Centro: Línea Dotted Finísima */}
-                                                <div className="flex-grow border-b-[2px] border-dotted border-neutral-800 mx-4 opacity-70 group-hover:border-[#00f2ff]/40 transition-colors" />
+                                                {/* Info */}
+                                                <div className="flex flex-col justify-center grow py-2">
+                                                    <div className="flex justify-between items-start mb-2">
+                                                        <h4 className="text-xl md:text-2xl font-black text-white uppercase leading-tight group-hover:text-neon-blue transition-colors">
+                                                            {item.title}
+                                                        </h4>
+                                                        <span className="text-neon-orange font-black text-xl md:text-2xl ml-4">
+                                                            <span className="text-[10px] font-mono opacity-50 mr-1 text-white">S/</span>{item.price}
+                                                        </span>
+                                                    </div>
+                                                    <p className="text-neutral-400 text-[10px] md:text-xs font-mono uppercase tracking-widest leading-relaxed">
+                                                        {item.description}
+                                                    </p>
+                                                    <div className="mt-4 flex items-center gap-2">
+                                                        <span className="w-2 h-2 rounded-full bg-neon-blue animate-pulse shadow-[0_0_8px_#00f3ff]" />
+                                                        <span className="text-[9px] font-mono text-neon-blue/80 uppercase tracking-widest">Plato Estrella</span>
+                                                    </div>
+                                                </div>
+                                            </motion.div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
 
-                                                {/* Derecha: Precio Vibrante */}
-                                                <span className="font-black text-xl md:text-3xl text-neon-orange shrink-0 transform-gpu group-hover:scale-105 transition-transform origin-right">
-                                                    <span className="text-[10px] md:text-sm font-mono opacity-50 mr-1 text-white">S/</span>{item.price}
-                                                </span>
+                            {/* 2. LISTA REGULAR (Tipográfica) */}
+                            {regularItems.length > 0 && (
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-12">
+                                    {regularItems.map((item) => {
+                                        const isExclusive = item.title.toUpperCase().includes("THE BEAR");
+                                        return (
+                                            <div key={item.id} className="flex flex-col w-full group">
+                                                {/* Fila: Nombre [dots] Precio */}
+                                                <div className="flex items-baseline w-full justify-between mb-2">
+                                                    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 shrink-0 max-w-[70%]">
+                                                        <h4 className="font-bold text-lg md:text-2xl text-[#f5f5f5] uppercase tracking-[-0.03em] transition-colors group-hover:text-white">
+                                                            {item.title}
+                                                        </h4>
+                                                        {isExclusive && (
+                                                            <span className="text-neon-blue font-mono text-[9px] md:text-[10px] uppercase tracking-[0.25em] border border-neon-blue/30 px-2 py-0.5 rounded-sm drop-shadow-[0_0_5px_rgba(0,243,255,0.4)]">
+                                                                [ EXCLUSIVO ]
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                    <div className="flex-grow border-b-[2px] border-dotted border-neutral-800 mx-4 opacity-70 group-hover:border-neon-blue/40 transition-colors" />
+                                                    <span className="font-black text-xl md:text-3xl text-neon-orange shrink-0 transform-gpu group-hover:scale-105 transition-transform origin-right">
+                                                        <span className="text-[10px] md:text-sm font-mono opacity-50 mr-1 text-white">S/</span>{item.price}
+                                                    </span>
+                                                </div>
+                                                {item.description && (
+                                                    <p className="text-neutral-500 text-[10px] md:text-xs font-mono uppercase tracking-[0.1em] leading-relaxed max-w-[85%] mt-1 group-hover:text-neutral-400 transition-colors">
+                                                        {item.description}
+                                                    </p>
+                                                )}
                                             </div>
+                                        );
+                                    })}
+                                </div>
+                            )}
 
-                                            {/* Abajo: Descripción Grisácea Espaciada */}
-                                            {item.description && (
-                                                <p className="text-neutral-500 text-[10px] md:text-xs font-mono uppercase tracking-[0.1em] leading-relaxed max-w-[85%] mt-1 group-hover:text-neutral-400 transition-colors">
-                                                    {item.description}
-                                                </p>
-                                            )}
-                                        </div>
-                                    );
-                                })}
-                            </div>
-
-                            {items.length === 0 && (
+                            {(featuredItems.length === 0 && regularItems.length === 0) && (
                                 <div className="py-32 text-center text-neutral-600 font-mono text-[10px] tracking-[0.2em] uppercase border border-neutral-900/50 rounded-2xl bg-[#111]/10">
                                     Categoría vacía. El Oso está cocinando.
                                 </div>
