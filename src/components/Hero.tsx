@@ -84,7 +84,7 @@ export default function Hero() {
             {/* 4. Floating Sea Sediment / Bubbles */}
             <Bubbles />
 
-            <div className="relative z-10 flex flex-col items-center flex-1 w-full max-w-2xl mx-auto md:justify-center">
+            <div className="relative z-10 flex flex-col items-center justify-center flex-1 w-full max-w-2xl mx-auto pb-10">
 
                 {/* Coordinate Markers (Brutalist detail to fill space) */}
                 <div className="absolute right-[-20px] top-1/2 -translate-y-1/2 -rotate-90 text-[8px] font-mono text-neutral-600 tracking-[0.5em] whitespace-nowrap opacity-40">Lat: 13.16° S / Long: 74.22° W</div>
@@ -108,12 +108,12 @@ export default function Hero() {
                     </defs>
                 </svg>
 
-                {/* 1. Centered Large Logo (With perfect Neon Glow blending) */}
+                {/* 1. Centered Large Logo (Compact aspect ratio) */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.8, y: 20 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-                    className="relative w-80 h-80 sm:w-96 sm:h-96 md:w-[500px] md:h-[500px] z-20 mix-blend-screen"
+                    className="relative w-full max-w-[280px] sm:max-w-[340px] md:max-w-[450px] aspect-[2/1] z-20 mix-blend-screen mb-4 md:mb-8"
                     style={{ filter: "url(#true-neon-glow)" }}
                 >
                     <Image
@@ -122,26 +122,26 @@ export default function Hero() {
                         fill
                         priority
                         className="object-contain"
-                        sizes="(max-width: 480px) 320px, (max-width: 768px) 384px, 500px"
+                        sizes="(max-width: 480px) 280px, (max-width: 768px) 340px, 450px"
                     />
                 </motion.div>
 
                 {/* 2. Slogan & Description (Closer to Logo) */}
-                <div className="text-center space-y-2 w-full mt-[-30px] md:mt-[-50px]">
+                <div className="text-center space-y-4 w-full">
                     <h1 className="text-[var(--font-size-hero)] font-black tracking-tighter text-white uppercase leading-[0.85] drop-shadow-[0_0_35px_rgba(0,243,255,0.7)] selection:bg-neon-blue selection:text-black">
                         Técnica y Alma. <br className="hidden sm:block" />
                         <span className="text-white brightness-200">Selección del Mar.</span>
                     </h1>
 
                     {/* 3. Description Paragraph (Tighter) */}
-                    <p className="text-neutral-400 text-xs sm:text-sm md:text-lg font-mono leading-relaxed tracking-wider mt-6 md:mt-8 mb-10 md:mb-14 max-w-sm mx-auto px-6 opacity-70">
+                    <p className="text-neutral-400 text-xs sm:text-sm md:text-lg font-mono leading-tight tracking-wider max-w-sm mx-auto px-6 opacity-70">
                         Siente el golpe del mar en cada bocado. THE BEAR, ceviche con técnica y alma en Ayacucho.
                     </p>
                 </div>
 
                 {/* 3. Primary CTA */}
-                <div className="w-full mt-auto md:mt-0 mb-6 flex justify-center z-20">
-                    <Link href="/Carta" className="w-full max-w-[340px] py-7 rounded-2xl border-2 border-neon-blue/40 bg-neon-blue/5 text-white font-black text-lg tracking-[0.3em] uppercase shadow-[0_0_25px_rgba(0,243,255,0.25)] active:scale-[0.95] transition-all hover:bg-neon-blue/15 hover:border-neon-blue hover:shadow-[0_0_50px_rgba(0,243,255,0.6)] text-center flex items-center justify-center backdrop-blur-3xl group relative overflow-hidden">
+                <div className="w-full mt-8 md:mt-12 flex justify-center z-20">
+                    <Link href="/Carta" className="w-full max-w-[300px] sm:max-w-[340px] py-5 sm:py-6 rounded-2xl border-2 border-neon-blue/40 bg-neon-blue/5 text-white font-black text-base sm:text-lg tracking-[0.3em] uppercase shadow-[0_0_25px_rgba(0,243,255,0.25)] active:scale-[0.95] transition-all hover:bg-neon-blue/15 hover:border-neon-blue hover:shadow-[0_0_50px_rgba(0,243,255,0.6)] text-center flex items-center justify-center backdrop-blur-3xl group relative overflow-hidden">
                         <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent)] -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                         <span className="relative z-10 group-hover:scale-105 transition-transform">Ver Carta Digital</span>
                     </Link>
