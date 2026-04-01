@@ -95,25 +95,16 @@ export default function Hero() {
                     initial={{ opacity: 0, scale: 0.8, y: 20 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-                    className="relative w-80 h-80 sm:w-96 sm:h-96 md:w-[500px] md:h-[500px] z-20 mix-blend-screen"
-                    style={{ filter: "contrast(1.1) brightness(1.1)" }}
+                    className="relative w-80 h-80 sm:w-96 sm:h-96 md:w-[500px] md:h-[500px] z-20"
                 >
                     <Image
                         src="/logo-the-bear-icon.png"
                         alt="The Bear Logo"
                         fill
                         priority
-                        className="object-contain"
+                        className="object-contain mix-blend-screen brightness-150 contrast-150"
                         sizes="(max-width: 480px) 320px, (max-width: 768px) 384px, 500px"
                     />
-                    {/* SVG filter to aggressively remove any near-black background */}
-                    <div className="absolute inset-0 opacity-0 pointer-events-none">
-                        <svg width="0" height="0">
-                            <filter id="chroma-key">
-                                <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  -1 -1 -1 1 0" />
-                            </filter>
-                        </svg>
-                    </div>
                 </motion.div>
 
                 {/* Applying the filter via a wrapper if needed, but mix-blend-screen usually works with true black. 
