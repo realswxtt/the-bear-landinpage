@@ -90,7 +90,7 @@ export const menuData: MenuItem[] = [
     { id: "en6", title: "Papa Rellena Acevichada", description: "", price: 18, category: "ENTRADAS" },
 
     // --- CEVICHES ---
-    { id: "cv1", title: "ceviche de pescado", description: "Clásico, fresco y punzante.", price: 20, category: "CEVICHES" },
+    { id: "cv1", title: "ceviche de pescado", description: "Clásico, fresco y punzante.", price: 20, category: "CEVICHES", image: "/dishes/ai-ceviche-pescado.png", isFeatured: true },
     {
         id: "cv2",
         title: "cevche norteño",
@@ -100,9 +100,9 @@ export const menuData: MenuItem[] = [
         image: "/dishes/ai-ceviche-norteno.png",
         isFeatured: true
     },
-    { id: "cv3", title: "ceviche mixto", description: "", price: 25, category: "CEVICHES" },
-    { id: "cv4", title: "ceviche pateado", description: "", price: 20, category: "CEVICHES" },
-    { id: "cv5", title: "ceviche de langostinos", description: "", price: 30, category: "CEVICHES" },
+    { id: "cv3", title: "ceviche mixto", description: "", price: 25, category: "CEVICHES", image: "/dishes/ai-ceviche-mixto.png", isFeatured: true },
+    { id: "cv4", title: "ceviche pateado", description: "", price: 20, category: "CEVICHES", image: "/dishes/ai-ceviche-pateado.png", isFeatured: true },
+    { id: "cv5", title: "ceviche de langostinos", description: "", price: 30, category: "CEVICHES", image: "/dishes/ai-ceviche-langostinos.png", isFeatured: true },
     {
         id: "cv6",
         title: "ceviche de conchas negras",
@@ -123,21 +123,21 @@ export const menuData: MenuItem[] = [
         image: "/dishes/ai-arroz-mariscos.png",
         isFeatured: true
     },
-    { id: "ar2", title: "arroz con langostinos", description: "", price: 25, category: "ARROCES" },
-    { id: "ar3", title: "arroz criollo", description: "", price: 20, category: "ARROCES" },
-    { id: "ar4", title: "chaufa de mariscos", description: "", price: 18, category: "ARROCES" },
-    { id: "ar5", title: "chaufa de pescado", description: "", price: 18, category: "ARROCES" },
-    { id: "ar6", title: "chaufa crispi de pescado", description: "", price: 18, category: "ARROCES" },
-    { id: "ar7", title: "chaufa salvaje", description: "", price: 20, category: "ARROCES" },
+    { id: "ar2", title: "arroz con langostinos", description: "", price: 25, category: "ARROCES", image: "/dishes/ai-arroz-langostinos.png", isFeatured: true },
+    { id: "ar3", title: "arroz criollo", description: "", price: 20, category: "ARROCES", image: "/dishes/ai-arroz-criollo.png", isFeatured: true },
+    { id: "ar4", title: "chaufa de mariscos", description: "", price: 18, category: "ARROCES", image: "/dishes/ai-chaufa-mariscos.png", isFeatured: true },
+    { id: "ar5", title: "chaufa de pescado", description: "", price: 18, category: "ARROCES", image: "/dishes/ai-chaufa-pescado.png", isFeatured: true },
+    { id: "ar6", title: "chaufa crispi de pescado", description: "", price: 18, category: "ARROCES", image: "/dishes/ai-chaufa-crispi.png", isFeatured: true },
+    { id: "ar7", title: "chaufa salvaje", description: "", price: 20, category: "ARROCES", image: "/dishes/ai-chaufa-salvaje.png", isFeatured: true },
 
     // --- CHICHARRONES ---
-    { id: "ch1", title: "chicharron de pota", description: "", price: 28, category: "CHICHARRONES" },
-    { id: "ch2", title: "chicharron de pescado", description: "", price: 20, category: "CHICHARRONES" },
-    { id: "ch3", title: "chicharron mixto", description: "", price: 25, category: "CHICHARRONES" },
-    { id: "ch4", title: "chicharron de calamar", description: "", price: 30, category: "CHICHARRONES" },
-    { id: "ch5", title: "chicharron de langostinos", description: "", price: 30, category: "CHICHARRONES" },
-    { id: "ch6", title: "cabrilla frita", description: "", price: 25, category: "CHICHARRONES" },
-    { id: "ch7", title: "chita frita", description: "", price: 25, category: "CHICHARRONES" },
+    { id: "ch1", title: "chicharron de pota", description: "", price: 28, category: "CHICHARRONES", image: "/dishes/ai-chicharron-pota.png", isFeatured: true },
+    { id: "ch2", title: "chicharron de pescado", description: "", price: 20, category: "CHICHARRONES", image: "/dishes/ai-chicharron-pescado.png", isFeatured: true },
+    { id: "ch3", title: "chicharron mixto", description: "", price: 25, category: "CHICHARRONES", image: "/dishes/ai-chicharron-mixto.png", isFeatured: true },
+    { id: "ch4", title: "chicharron de calamar", description: "", price: 30, category: "CHICHARRONES", image: "/dishes/ai-chicharron-calamar.png", isFeatured: true },
+    { id: "ch5", title: "chicharron de langostinos", description: "", price: 30, category: "CHICHARRONES", image: "/dishes/ai-chicharron-langostinos.png", isFeatured: true },
+    { id: "ch6", title: "cabrilla frita", description: "", price: 25, category: "CHICHARRONES", image: "/dishes/ai-cabrilla-frita.png", isFeatured: true },
+    { id: "ch7", title: "chita frita", description: "", price: 25, category: "CHICHARRONES", image: "/dishes/ai-chita-frita.png", isFeatured: true },
     {
         id: "ch8",
         title: "jalea mixta",
@@ -149,7 +149,7 @@ export const menuData: MenuItem[] = [
     },
 
     // --- SOPAS ---
-    { id: "sp1", title: "chilcano especial", description: "", price: 13, category: "SOPAS" },
+    { id: "sp1", title: "chilcano especial", description: "", price: 13, category: "SOPAS", image: "/dishes/ai-chilcano-especial.png", isFeatured: true },
     { id: "sp2", title: "caldo arrecho", description: "", price: 15, category: "SOPAS" },
     { id: "sp3", title: "chilcano de tranbollo", description: "", price: 20, category: "SOPAS" },
     { id: "sp4", title: "chilcano de cabrlla", description: "", price: 20, category: "SOPAS" },
