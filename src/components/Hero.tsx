@@ -118,7 +118,7 @@ export default function Hero() {
 
                 {/* 3. Primary CTA */}
                 <div className="w-full mt-10 md:mt-14 flex justify-center z-20">
-                    <Link href="/Carta" className="w-full max-w-[300px] sm:max-w-[380px] py-5 sm:py-7 rounded-2xl border-2 border-neon-blue/40 bg-neon-blue/5 text-white font-black text-base md:text-xl tracking-[0.3em] uppercase shadow-[0_0_25px_rgba(0,243,255,0.25)] active:scale-[0.95] transition-all hover:bg-neon-blue/15 hover:border-neon-blue hover:shadow-[0_0_50px_rgba(0,243,255,0.6)] text-center flex items-center justify-center backdrop-blur-3xl group relative overflow-hidden">
+                    <Link href="/menu" className="w-full max-w-[300px] sm:max-w-[380px] py-5 sm:py-7 rounded-2xl border-2 border-neon-blue/40 bg-neon-blue/5 text-white font-black text-base md:text-xl tracking-[0.3em] uppercase shadow-[0_0_25px_rgba(0,243,255,0.25)] active:scale-[0.95] transition-all hover:bg-neon-blue/15 hover:border-neon-blue hover:shadow-[0_0_50px_rgba(0,243,255,0.6)] text-center flex items-center justify-center backdrop-blur-3xl group relative overflow-hidden">
                         <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent)] -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                         <span className="relative z-10 group-hover:scale-105 transition-transform">Ver Carta Digital</span>
                     </Link>
